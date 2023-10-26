@@ -26,7 +26,7 @@ public class SessionDBContext extends DBContext<Session> {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
             String sql = "SELECT  \n"
-                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.rid,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
+                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.rid,r.rname,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
                     + "FROM [Session] ses INNER JOIN [Group] g ON ses.gid = g.gid\n"
                     + "							INNER JOIN [Subject] sub ON g.subid = sub.subid\n"
                     + "							INNER JOIN Room r ON r.rid = ses.rid\n"

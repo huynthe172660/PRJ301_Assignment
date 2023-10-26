@@ -38,7 +38,7 @@ public class TimeTableController extends BasedRequiredAuthenticationController {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response, Account user) throws ServletException, IOException {
-        int id = user.getAccId();
+        int id = Integer.parseInt(request.getParameter("id")) ;
         String s_from = request.getParameter("from");
         String s_to = request.getParameter("to");
         ArrayList<Date> dates = new ArrayList<>();
@@ -61,7 +61,6 @@ public class TimeTableController extends BasedRequiredAuthenticationController {
         SessionDBContext sesDB = new SessionDBContext();
         ArrayList<Session> sessions = sesDB.getSessions(id, from, to);
         
-        System.out.println("hihi");
 
         request.setAttribute("slots", slots);
         request.setAttribute("dates", dates);
