@@ -21,7 +21,7 @@ public abstract class DBContext <T extends IBaseModel> {
     public DBContext()
     {
         try {
-            String url = "jdbc:sqlserver://DESKTOP-078GCOQ\\SQLEXPRESS:1433;databaseName=PRJ301_Assignment";
+            String url = "jdbc:sqlserver://DESKTOP-078GCOQ\\SQLEXPRESS:1433;databaseName=Assignment_PRJ301";
             String user = "sa";
             String pass = "huycow123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -33,9 +33,5 @@ public abstract class DBContext <T extends IBaseModel> {
         }
         
     }
-    public abstract void insert(T model);
-    public abstract void update(T model);
-    public abstract void remove(T model);
-    public abstract T get(T model);
     public abstract ArrayList<T> list();
 }

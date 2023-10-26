@@ -4,14 +4,14 @@
  */
 package controller.authentication;
 
-import dal.UserDBContext;
+import dal.AccountDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import model.User;
+import model.Account;
 
 /**
  *
@@ -20,7 +20,7 @@ import model.User;
 public abstract class BasedRequiredAuthenticationController extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        User account = (User) request.getSession().getAttribute("account");
+        Account account = (Account) request.getSession().getAttribute("account");
         if (account != null) {
             return true;
         } else {
@@ -41,10 +41,10 @@ public abstract class BasedRequiredAuthenticationController extends HttpServlet 
                 }
             }
             if (user != null && pass != null) {
-                UserDBContext db = new UserDBContext();
-                User param = new User();
-                param.setUsername(user);
-                param.setPassword(pass);
+                AccountDBContext db = new AccountDBContext();
+                Account param = new Account();
+                param.setAccName(user);
+                param.setAccPass(pass);
                 account = db.get(param);
                 return account != null;
             } else {
@@ -66,16 +66,16 @@ public abstract class BasedRequiredAuthenticationController extends HttpServlet 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (isAuthenticated(request)) {
-            doGet(request, response, (User) request.getSession().getAttribute("account"));
+            doGet(request, response, (Account) request.getSession().getAttribute("account"));
         } else {
             response.getWriter().println("access denied!");
         }
     }
 
-    protected abstract void doGet(HttpServletRequest request, HttpServletResponse response, User user)
+    protected abstract void doGet(HttpServletRequest request, HttpServletResponse response, Account user)
             throws ServletException, IOException;
 
-    protected abstract void doPost(HttpServletRequest request, HttpServletResponse response, User user)
+    protected abstract void doPost(HttpServletRequest request, HttpServletResponse response, Account user)
             throws ServletException, IOException;
 
     /**
@@ -91,7 +91,7 @@ public abstract class BasedRequiredAuthenticationController extends HttpServlet 
             throws ServletException, IOException {
         if (isAuthenticated(request)) {
             //do business overrided in the sub class
-            doPost(request, response, (User) request.getSession().getAttribute("account"));
+            doPost(request, response, (Account) request.getSession().getAttribute("account"));
         } else {
             response.getWriter().println("access denied!");
         }

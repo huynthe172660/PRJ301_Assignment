@@ -10,10 +10,10 @@ import java.util.ArrayList;
  *
  * @author AD
  */
-public class Feature implements IBaseModel{
+    public class Subject implements IBaseModel{
     private int id;
-    private String url;
-    private ArrayList<Role> roles = new ArrayList<>();
+    private String name;
+    private ArrayList<Group> groups = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -23,20 +23,21 @@ public class Feature implements IBaseModel{
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public ArrayList<Role> getRoles() {
-        return roles;
+    public ArrayList<Group> getGroups() {
+        return groups;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
-        this.roles = roles;
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
     }
     
 }
+

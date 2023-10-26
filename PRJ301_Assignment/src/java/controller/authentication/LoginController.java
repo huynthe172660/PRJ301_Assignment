@@ -4,7 +4,7 @@
  */
 package controller.authentication;
 
-import dal.UserDBContext;
+import dal.AccountDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import model.User;
+import model.Account;
 
 /**
  *
@@ -48,11 +48,11 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User param = new User();
-        param.setUsername(username);
-        param.setPassword(password);
-        UserDBContext db = new UserDBContext();
-        User loggedUser = db.get(param);
+        Account param = new Account();
+        param.setAccName(username);
+        param.setAccPass(password);
+        AccountDBContext db = new AccountDBContext();
+        Account loggedUser = db.get(param);
         if (loggedUser != null) {
             
             HttpSession session = request.getSession();
