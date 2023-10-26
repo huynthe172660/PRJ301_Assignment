@@ -26,12 +26,12 @@ public class SessionDBContext extends DBContext<Session> {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
             String sql = "SELECT  \n"
-                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.roomid,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
+                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.rid,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
                     + "FROM [Session] ses INNER JOIN [Group] g ON ses.gid = g.gid\n"
                     + "							INNER JOIN [Subject] sub ON g.subid = sub.subid\n"
-                    + "							INNER JOIN Room r ON r.roomid = ses.rid\n"
+                    + "							INNER JOIN Room r ON r.rid = ses.rid\n"
                     + "							INNER JOIN TimeSlot t ON ses.tid = t.tid\n"
-                    + "WHERE ses.iid = ? AND ses.[date] >= ? AND ses.[date] <= ?";
+                    + "WHERE ses.insid = ? AND ses.[date] >= ? AND ses.[date] <= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, iid);
             stm.setDate(2, from);
@@ -44,7 +44,7 @@ public class SessionDBContext extends DBContext<Session> {
                 session.setIndex(rs.getInt("index"));
                 session.setIsAtt(rs.getBoolean("isAtt"));
                 Room r = new Room();
-                r.setId(rs.getString("roomid"));
+                r.setName(rs.getString("rname"));
                 session.setRoom(r);
 
                 Group g = new Group();
@@ -74,10 +74,10 @@ public class SessionDBContext extends DBContext<Session> {
     public Session getSessions(int sesid) {
         try {
             String sql = "SELECT  \n"
-                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.roomid,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
+                    + "	ses.sesid,ses.[date],ses.[index],ses.isAtt,r.rid,sub.subid,sub.subname,g.gid,g.gname,t.tid,t.[description]\n"
                     + "FROM [Session] ses INNER JOIN [Group] g ON ses.gid = g.gid\n"
                     + "							INNER JOIN [Subject] sub ON g.subid = sub.subid\n"
-                    + "							INNER JOIN Room r ON r.roomid = ses.rid\n"
+                    + "							INNER JOIN Room r ON r.rid = ses.rid\n"
                     + "							INNER JOIN TimeSlot t ON ses.tid = t.tid\n"
                     + "WHERE ses.sesid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class SessionDBContext extends DBContext<Session> {
                 session.setIndex(rs.getInt("index"));
                 session.setIsAtt(rs.getBoolean("isAtt"));
                 Room r = new Room();
-                r.setId(rs.getString("roomid"));
+                r.setName(rs.getString("rname"));
                 session.setRoom(r);
 
                 Group g = new Group();
