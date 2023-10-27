@@ -32,13 +32,44 @@ public class TimeTableController extends BasedRequiredAuthenticationController {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, Account user) throws ServletException, IOException {
-        request.getRequestDispatcher("../view/screen/timetable.jsp").forward(request, response);
+        int id = user.getAccId();
+        String s_from = request.getParameter("from");
+        String s_to = request.getParameter("to");
+        ArrayList<Date> dates = new ArrayList<>();
+        if (s_from == null)// this week
+        {
+            dates = (ArrayList<Date>) DateUtils.getDatesOfCurrentWeek();
+        } else {
+            try {
+                dates = (ArrayList<Date>) getSQLDatesBetween(s_from, s_to);
+            } catch (ParseException ex) {
+                Logger.getLogger(TimeTableController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        Date from = dates.get(0);
+        Date to = dates.get(dates.size() - 1);
+        
+        TimeSlotDBContext timeDB = new TimeSlotDBContext();
+        ArrayList<TimeSlot> slots = timeDB.list();
 
+        SessionDBContext sesDB = new SessionDBContext();
+        ArrayList<Session> sessions = sesDB.getSessions(id, from, to);
+        
+
+        request.setAttribute("slots", slots);
+        request.setAttribute("dates", dates);
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
+        request.setAttribute("sessions", sessions);
+        request.setAttribute("accname", user.getAccName());
+
+        request.getRequestDispatcher("../view/screen/timetable.jsp").forward(request, response);
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response, Account user) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id")) ;
+        int id = user.getAccId();
         String s_from = request.getParameter("from");
         String s_to = request.getParameter("to");
         ArrayList<Date> dates = new ArrayList<>();
@@ -55,6 +86,7 @@ public class TimeTableController extends BasedRequiredAuthenticationController {
         Date from = dates.get(0);
         Date to = dates.get(dates.size() - 1);
 
+        
         TimeSlotDBContext timeDB = new TimeSlotDBContext();
         ArrayList<TimeSlot> slots = timeDB.list();
 
@@ -67,6 +99,7 @@ public class TimeTableController extends BasedRequiredAuthenticationController {
         request.setAttribute("from", from);
         request.setAttribute("to", to);
         request.setAttribute("sessions", sessions);
+        request.setAttribute("accname", user.getAccName());
 
         request.getRequestDispatcher("../view/screen/timetable.jsp").forward(request, response);
     }

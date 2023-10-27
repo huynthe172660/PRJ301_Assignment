@@ -78,8 +78,8 @@
         <header>
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Logo_FPT_Education.png" alt="Login Image" width="300px" height="150px">
             <br>
-            Lecturer:
-            <form action="timetable" method="POST">
+            Lecturer: ${requestScope.accname}
+            <form action="timetable" method="GET">
                 <input type="hidden" name="id" value="${param.id}"/>
                 From <input type="date" value="${requestScope.from}" name="from"/> 
                 To <input type="date" value="${requestScope.to}" name="to"/> 
@@ -90,7 +90,7 @@
             
         </header>
 
-        <c:if test="${requestScope.sessions.size()!=null}">
+        <c:if test="${requestScope.dates.size()!=null}">
             <table border="1px">
                 <tr>
                     <td></td>

@@ -22,13 +22,14 @@ public class AccountDBContext extends DBContext<Account> {
 
     public Account get(Account model) {
         try {
-            String sql = "SELECT accname, accpass FROM Account WHERE accname = ? AND accpass = ?";
+            String sql = "SELECT accid, accname, accpass FROM Account WHERE accname = ? AND accpass = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, model.getAccName());
             stm.setString(2, model.getAccPass());
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 Account user = new Account();
+                user.setAccId(rs.getInt("accid"));
                 user.setAccName(model.getAccName());
                 return user;
             }
