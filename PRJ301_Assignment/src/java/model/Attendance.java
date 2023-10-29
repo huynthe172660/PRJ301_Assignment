@@ -14,7 +14,7 @@ public class Attendance implements IBaseModel{
     private Session session;
     private Student student;
     private boolean status;
-    private String description;
+    private String comment;
     private Date datetime;
 
     public Session getSession() {
@@ -41,13 +41,14 @@ public class Attendance implements IBaseModel{
         this.status = status;
     }
 
-    public String getDescription() {
-        return description;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
+
 
     public Date getDatetime() {
         return datetime;

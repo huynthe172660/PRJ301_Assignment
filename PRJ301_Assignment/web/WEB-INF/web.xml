@@ -16,6 +16,10 @@
         <servlet-name>TimeTableController</servlet-name>
         <servlet-class>controller.timetable.TimeTableController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerTakeAttendance</servlet-name>
+        <servlet-class>controller.TakeAttendance.TakeAttendanceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/assignment/login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/assignment/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerTakeAttendance</servlet-name>
+        <url-pattern>/assignment/takeattendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

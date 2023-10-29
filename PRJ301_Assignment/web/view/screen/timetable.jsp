@@ -107,7 +107,7 @@
                             <td>
                                 <c:forEach items="${requestScope.sessions}" var="k">
                                     <c:if test="${k.date eq d and k.slot.id eq s.id}">
-                                        <a href="att?id=${k.id}">
+                                        <a href="takeattendance?id=${k.id}">
                                             ${k.group.name}-${k.group.subject.name}-${k.room.name}
                                             <c:if test="${k.isAtt}">
                                                 (attended)

@@ -58,7 +58,7 @@
         </header>
 
         <div class="container">
-            <a href="timetable?id=1">
+            <a href="timetable">
                 <div class="box">
                     <h2>Weekly timetable</h2>
                 </div>
@@ -67,7 +67,7 @@
 
         <div class="container">
 
-            <a href="sameLink.jsp">
+            <a href="timetable">
                 <div class="box">
                     <h2>Take Attendance</h2>
                 </div>
