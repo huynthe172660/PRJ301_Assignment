@@ -20,7 +20,7 @@
             }
             body {
                 background-color: #f0f0f0;
-                font-family: 'Verdana', sans-serif;
+                font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
             }
@@ -33,6 +33,7 @@
 
             .header img {
                 max-width: 100%;
+                background-color: #fff;
             }
 
             h1 {
@@ -71,6 +72,7 @@
 
             a:hover {
                 text-decoration: underline;
+                color: black;
             }
         </style>
     </head>
@@ -102,18 +104,25 @@
                 </tr>
                 <c:forEach items="${requestScope.slots}" var="s" varStatus="loop">
                     <tr>
-                        <td>${s.id}-${s.description}</td>
+                        <td>Slot ${s.id} (${s.description})</td>
                         <c:forEach items="${requestScope.dates}" var="d">
                             <td>
                                 <c:forEach items="${requestScope.sessions}" var="k">
                                     <c:if test="${k.date eq d and k.slot.id eq s.id}">
                                         <a href="takeattendance?id=${k.id}">
-                                            ${k.group.name}-${k.group.subject.name}-${k.room.name}
+                                            <span style="color: black;">
+                                                ${k.group.name}-${k.group.subject.name}-${k.room.name}
+                                            </span>
+                                            
                                             <c:if test="${k.isAtt}">
-                                                (attended)
+                                                <span style="color: green;"> 
+                                                    (attended) 
+                                                </span>
                                             </c:if>
                                             <c:if test="${!k.isAtt}">
-                                                (not yet)
+                                                <span style="color: red;"> 
+                                                    (not yet) 
+                                                </span>
                                             </c:if>
                                         </a>
                                     </c:if>
