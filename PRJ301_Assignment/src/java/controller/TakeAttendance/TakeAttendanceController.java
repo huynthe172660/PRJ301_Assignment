@@ -53,14 +53,14 @@ public class TakeAttendanceController extends BasedRequiredAuthenticationControl
             a.setStudent(s);
             a.setStatus(request.getParameter("status" + stuid).equals("present"));
             a.setComment(request.getParameter("comment" + stuid));
-            atts.add(a);
+//            atts.add(a);
             ses.getAtts().add(a);
         }
         SessionDBContext sesDB = new SessionDBContext();
         sesDB.addAttendances(ses);
         response.getWriter().println("done");
-        request.setAttribute("atts", atts);
-        request.getRequestDispatcher("../view/screen/takeattendance.jsp").forward(request, response);
+//        request.setAttribute("atts", atts);
+//        request.getRequestDispatcher("../view/screen/takeattendance.jsp").forward(request, response);
     }
 
 }
