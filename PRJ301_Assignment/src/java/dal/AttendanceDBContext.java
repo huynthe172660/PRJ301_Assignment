@@ -56,6 +56,8 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         }
         return atts;
     }
+        
+
     @Override
     public ArrayList<Attendance> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

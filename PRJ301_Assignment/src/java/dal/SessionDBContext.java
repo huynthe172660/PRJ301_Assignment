@@ -176,4 +176,14 @@ public class SessionDBContext extends DBContext<Session> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public static void main(String[] args) {
+        Session s = new Session();
+        s.setId(2);
+        s.setIsAtt(false);
+        SessionDBContext sdb = new SessionDBContext();
+        sdb.addAttendances(s);
+        System.out.println(s.isIsAtt());
+        
+    }
+    
 }

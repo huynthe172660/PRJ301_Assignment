@@ -18,6 +18,16 @@ public class Student implements IBaseModel{
     private Date dob;
     private String img;
     private ArrayList<Group> groups = new ArrayList<>();
+    private ArrayList<Attendance> att = new ArrayList<>();
+
+    public ArrayList<Attendance> getAtt() {
+        return att;
+    }
+
+    public void setAtt(ArrayList<Attendance> att) {
+        this.att = att;
+    }
+    
 
     public boolean isGender() {
         return gender;
