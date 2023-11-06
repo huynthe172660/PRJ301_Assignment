@@ -80,7 +80,6 @@
             <h1>Attendance for ${requestScope.ses.group.name}-${requestScope.ses.group.subject.name}-${requestScope.ses.room.name}</h1>
         </header>
 
-        <form action="takeattendance" method="POST">
             <table>
                 <tr>
                     <th>Student</th>
@@ -101,15 +100,11 @@
                                    <c:if test="${!a.status}">checked="checked"</c:if>/>
                             <label for="absent_${a.student.id}" class="absent">Absent</label>
                         </td>
-                        <td><input type="text" value="${a.comment}" name="comment${a.student.id}" style="width: 90%; padding: 10px;"/></td>
+                        <td><input type="text" value="${a.comment}" name="description${a.student.id}" style="width: 90%; padding: 10px;"/></td>
                         <td>${a.datetime}</td>
                     </tr>
                 </c:forEach>
             </table>
             <input type="hidden" value="${requestScope.ses.id}" name="sesid"/>
-            <div class="center" style="text-align: center"> 
-                <input type="submit" value="Save Attendance" >
-            </div>
-        </form>
     </body>
 </html>
