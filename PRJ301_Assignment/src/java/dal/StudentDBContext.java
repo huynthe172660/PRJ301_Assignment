@@ -20,8 +20,8 @@ import model.Student;
  */
 public class StudentDBContext extends DBContext<Student> {
 
-    public ArrayList<Student> getAttendances(int stuid) {
-        ArrayList<Student> stu = new ArrayList<>();
+    public ArrayList<Attendance> getAttendancesByStuid(int stuid) {
+        ArrayList<Attendance> att = new ArrayList<>();
         try {
             String sql = "SELECT a.stuid, a.sesid, a.status, s.stuname FROM Attendance a JOIN Student s ON a.stuid = s.stuid WHERE a.stuid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -33,27 +33,33 @@ public class StudentDBContext extends DBContext<Student> {
                 Session ses = new Session();
                 ses.setId(rs.getInt("sesid"));
 
-                a.setSession(ses);
-                a.setStatus(rs.getBoolean("status"));
-
                 Student s = new Student();
                 s.setId(rs.getInt("stuid"));
-                s.setName("stuname");
-                s.getAtt().add(a);
-                
-                stu.add(s);
+
+                a.setSession(ses);
+                a.setStatus(rs.getBoolean("status"));
+                a.setStudent(s);
+
+
+                att.add(a);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return stu;
+        return att;
     }
-    
-    
 
     @Override
     public ArrayList<Student> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public static void main(String[] args) {
+        StudentDBContext sdb = new StudentDBContext();
+        ArrayList<Attendance> att = new ArrayList<>();
+        att = sdb.getAttendancesByStuid(1);
+        System.out.println(att.size());
+        
     }
 
 }

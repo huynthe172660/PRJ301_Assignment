@@ -63,4 +63,10 @@ public class AttendanceDBContext extends DBContext<Attendance> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public static void main(String[] args) {
+        AttendanceDBContext adb = new AttendanceDBContext();
+        ArrayList<Attendance> a = new ArrayList<>();
+        a = adb.getAttendancesBySession(1);
+        System.out.println(a.size()+"hihi");
+    }
 }

@@ -6,13 +6,20 @@
 package controller.attendancereport;
 
 import controller.authentication.BasedRequiredAuthenticationController;
+import dal.GroupDBContext;
+import dal.SessionDBContext;
+import dal.StudentDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import model.Account;
+import model.Attendance;
+import model.Session;
+import model.Student;
 
 /**
  *
@@ -22,7 +29,26 @@ public class AttendanceReportController extends BasedRequiredAuthenticationContr
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, Account user) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GroupDBContext gdb = new GroupDBContext();
+        ArrayList<Student> stu = gdb.getStudentByGroup(1);
+        
+        SessionDBContext sdb = new SessionDBContext();
+        ArrayList<Session> ses = sdb.getSessionByGroup(1);
+        int number = ses.size();
+        
+        StudentDBContext stdb = new StudentDBContext();
+        ArrayList<Attendance> att = stdb.getAttendancesByStuid(1);
+        
+        request.setAttribute("stu", stu);
+        request.setAttribute("ses", ses);
+        request.setAttribute("att", att);
+        request.setAttribute("number", number);
+        request.getRequestDispatcher("../view/screen/attendancereport.jsp").forward(request, response);
+        
+        
+        
+        
+        
     }
 
     @Override

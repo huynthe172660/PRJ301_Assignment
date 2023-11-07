@@ -23,6 +23,7 @@ import model.TimeSlot;
  * @author AD
  */
 public class SessionDBContext extends DBContext<Session> {
+
     public ArrayList<Session> getSessions(int iid, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
@@ -71,7 +72,7 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return sessions;
     }
-    
+
     public Session getSessions(int sesid) {
         try {
             String sql = "SELECT  \n"
@@ -116,7 +117,7 @@ public class SessionDBContext extends DBContext<Session> {
         }
         return null;
     }
-    
+
     public void addAttendances(Session ses) {
         try {
             connection.setAutoCommit(false);
@@ -170,20 +171,44 @@ public class SessionDBContext extends DBContext<Session> {
         }
     }
 
+    public ArrayList<Session> getSessionByGroup(int gid) {
+        ArrayList<Session> ses = new ArrayList<>();
+
+        PreparedStatement stm;
+        try {
+            String sql = "  SELECT sesid, gid, [index] FROM Session WHERE gid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Session s = new Session();
+                s.setId(rs.getInt("sesid"));
+                s.setIndex(rs.getInt("index"));
+                
+                Group g = new Group();
+                g.setId(rs.getInt("gid"));
+                s.setGroup(g);
+                ses.add(s);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ses;
+    }
 
     @Override
     public ArrayList<Session> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public static void main(String[] args) {
-        Session s = new Session();
-        s.setId(2);
-        s.setIsAtt(false);
-        SessionDBContext sdb = new SessionDBContext();
-        sdb.addAttendances(s);
-        System.out.println(s.isIsAtt());
-        
-    }
-    
+
+//    public static void main(String[] args) {
+//        Session s = new Session();
+//        s.setId(2);
+//        s.setIsAtt(false);
+//        SessionDBContext sdb = new SessionDBContext();
+//        sdb.addAttendances(s);
+//        System.out.println(s.isIsAtt());
+//        
+//    }
 }

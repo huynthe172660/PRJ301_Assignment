@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Group;
 import model.Instructor;
+import model.Student;
 
 /**
  *
@@ -43,6 +44,26 @@ public class GroupDBContext extends DBContext<Group> {
             Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return gs;
+    }
+    
+    public ArrayList<Student> getStudentByGroup(int gid){
+        ArrayList <Student> stu = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT gs.gid, s.stuid, s.stuname FROM Group_Student gs JOIN Student s ON gs.stuid = s.stuid WHERE gs.gid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1,gid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Student s = new Student();
+                s.setId(rs.getInt("stuid"));
+                s.setName(rs.getString("stuname"));
+                stu.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return stu;
     }
 
     @Override
