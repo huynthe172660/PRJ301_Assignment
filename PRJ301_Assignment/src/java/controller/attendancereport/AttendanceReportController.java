@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.Account;
 import model.Attendance;
 import model.Session;
@@ -39,6 +40,13 @@ public class AttendanceReportController extends BasedRequiredAuthenticationContr
         StudentDBContext stdb = new StudentDBContext();
         ArrayList<Attendance> att = stdb.getAttendancesByStuid(1);
         
+        HashMap<String, ArrayList<Attendance> > attrp = new HashMap<>();
+        for(int i=0;i<stu.size();i++){
+            attrp.put(stu.get(i).getName(), stdb.getAttendancesByStuid(stu.get(i).getId()));
+        }
+        
+        
+        request.setAttribute("attrp", attrp);
         request.setAttribute("stu", stu);
         request.setAttribute("ses", ses);
         request.setAttribute("att", att);

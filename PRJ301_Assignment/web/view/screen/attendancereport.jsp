@@ -20,6 +20,16 @@
                     <th>Slot ${loop.index}</th>
                 </c:forEach>
             </tr>
+            <c:forEach items="${requestScope.attrp}" var="a">
+                <tr>
+                    <td>${a.key}</td>
+                    <c:forEach items="${a.value}" var="s">
+                        <td>
+                            ${s.status}
+                        </td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
         </table>
             
 
