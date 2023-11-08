@@ -39,24 +39,35 @@
         </head>
         <body>
             <h2>Attendance Report</h2>
-            <table border="1px">
-                <tr>
-                    <th>Name</th>
-                        <c:forEach begin="1" end="${requestScope.number}" varStatus="loop" >
-                        <th>Slot ${loop.index}</th>
-                        </c:forEach>
-                </tr>
-                <c:forEach items="${requestScope.attrp}" var="a">
+            <c:forEach items="${requestScope.gs}" var="g">
+                <a href="attendancereport?id=${g.id}">${g.name}</a>
+            </c:forEach>
+            <c:if test="${requestScope.id != null}">
+                <table border="1px">
                     <tr>
-                        <td>${a.key}</td>
-                        <c:forEach items="${a.value}" var="s">
-                            <td>
-                                ${s.status}
-                            </td>
-                        </c:forEach>
+                        <th>Name</th>
+                            <c:forEach begin="1" end="${requestScope.number}" varStatus="loop" >
+                            <th>Slot ${loop.index}</th>
+                            </c:forEach>
                     </tr>
-                </c:forEach>
-            </table>
+                    <c:forEach items="${requestScope.attrp}" var="a">
+                        <tr>
+                            <td>${a.key}</td>
+                            <c:forEach items="${a.value}" var="s">
+                                <td>
+                                    <c:if test="${s.status}">
+                                        <span style="color: green">P</span>
+                                    </c:if>
+                                    <c:if test="${!s.status}">
+                                        <span style="color: red">A</span>
+                                    </c:if>
+                                </td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+
         </body>
     </html>
 
