@@ -20,12 +20,13 @@ import model.Student;
  */
 public class StudentDBContext extends DBContext<Student> {
 
-    public ArrayList<Attendance> getAttendancesByStuid(int stuid) {
+    public ArrayList<Attendance> getAttendancesByStuid(int stuid, int gid) {
         ArrayList<Attendance> att = new ArrayList<>();
         try {
-            String sql = "SELECT a.stuid, a.sesid, a.status, s.stuname FROM Attendance a JOIN Student s ON a.stuid = s.stuid WHERE a.stuid = ?";
+            String sql = "SELECT a.stuid, a.sesid, a.status, s.stuname, ses.gid FROM Attendance a JOIN Student s ON a.stuid = s.stuid JOIN Session ses ON a.sesid = ses.sesid  WHERE a.stuid = ? and ses.gid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, stuid);
+            stm.setInt(2, gid);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Attendance a = new Attendance();
@@ -54,12 +55,12 @@ public class StudentDBContext extends DBContext<Student> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public static void main(String[] args) {
-        StudentDBContext sdb = new StudentDBContext();
-        ArrayList<Attendance> att = new ArrayList<>();
-        att = sdb.getAttendancesByStuid(1);
-        System.out.println(att.size());
-        
-    }
+//    public static void main(String[] args) {
+//        StudentDBContext sdb = new StudentDBContext();
+//        ArrayList<Attendance> att = new ArrayList<>();
+//        att = sdb.getAttendancesByStuid(1);
+//        System.out.println(att.size());
+//        
+//    }
 
 }

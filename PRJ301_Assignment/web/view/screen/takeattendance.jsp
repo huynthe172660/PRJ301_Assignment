@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,6 +72,22 @@
             input[type="submit"]:hover {
                 background-color: #45a049;
             }
+            .home-box {
+                border: 1px solid #ccc; /* Đường viền */
+                padding: 10px; /* Khoảng cách nội dung với viền */
+                margin: 10px auto; /* Căn giữa theo chiều ngang */
+                background-color: white; /* Màu nền */
+                max-width: 100px; /* Giới hạn chiều rộng tối đa */
+                overflow: hidden; /* Ẩn phần vượt quá chiều rộng */
+            }
+            .home-icon{
+                color: #FF8C00;
+            }
+                        a:hover {
+                color: #FF8C00 ; /* Thay đổi màu khi di chuột qua link */
+                font-size: 1.1em; /* Phóng to kích thước chữ */
+                transition: all 0.3s ease; /* Hiệu ứng chuyển động mềm mại */
+            }
         </style>
     </head>
     <body>
@@ -78,6 +95,10 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Logo_FPT_Education.png" alt="Login Image" width="300px" height="150px">
             <br>
             <h1>Attendance for ${requestScope.ses.group.name}-${requestScope.ses.group.subject.name}-${requestScope.ses.room.name}</h1>
+            <div class="home-box">
+                <i class="fas fa-home home-icon"></i>
+                <a href="home" style="color: #FF8C00; text-decoration: none;">Home</a>
+            </div>
         </header>
 
         <form action="takeattendance" method="POST">

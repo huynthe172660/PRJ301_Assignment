@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!DOCTYPE html>
 <html>
     <head>
@@ -74,7 +75,22 @@
                 text-decoration: underline;
                 color: black;
             }
-
+            .home-box {
+                border: 1px solid #ccc; /* Đường viền */
+                padding: 10px; /* Khoảng cách nội dung với viền */
+                margin: 10px auto; /* Căn giữa theo chiều ngang */
+                background-color: white; /* Màu nền */
+                max-width: 100px; /* Giới hạn chiều rộng tối đa */
+                overflow: hidden; /* Ẩn phần vượt quá chiều rộng */
+            }
+            .home-icon{
+                color: #FF8C00;
+            }
+            a:hover {
+                color: #FF8C00 ; /* Thay đổi màu khi di chuột qua link */
+                font-size: 1.1em; /* Phóng to kích thước chữ */
+                transition: all 0.3s ease; /* Hiệu ứng chuyển động mềm mại */
+            }
         </style>
     </head>
     <body>
@@ -90,10 +106,10 @@
                 <br>
                 Please go to teach on time and don't forget to take attendance before 12AM
             </form>
-            <a href="home" style="color: white">
-                <br>
-                Home
-            </a>
+            <div class="home-box">
+                <i class="fas fa-home home-icon"></i>
+                <a href="home" style="color: #FF8C00; text-decoration: none;">Home</a>
+            </div>
 
         </header>
 

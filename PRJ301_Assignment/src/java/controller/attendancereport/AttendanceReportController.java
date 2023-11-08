@@ -32,7 +32,7 @@ public class AttendanceReportController extends BasedRequiredAuthenticationContr
     protected void doGet(HttpServletRequest request, HttpServletResponse response, Account user) throws ServletException, IOException {
         GroupDBContext gdb = new GroupDBContext();
         ArrayList<Group> gs = gdb.getGroupByInsId(user.getAccId());
-        if (request.getAttribute("id") != null) {
+        if (request.getParameter("id") != null) {
             int gid = Integer.parseInt(request.getParameter("id"));
             ArrayList<Student> stu = gdb.getStudentByGroup(gid);
             SessionDBContext sdb = new SessionDBContext();
@@ -43,7 +43,7 @@ public class AttendanceReportController extends BasedRequiredAuthenticationContr
 
             HashMap<String, ArrayList<Attendance>> attrp = new HashMap<>();
             for (int i = 0; i < stu.size(); i++) {
-                attrp.put(stu.get(i).getName(), stdb.getAttendancesByStuid(stu.get(i).getId()));
+                attrp.put(stu.get(i).getName(), stdb.getAttendancesByStuid(stu.get(i).getId(),gid));
             }
             request.setAttribute("id", gid);
             request.setAttribute("attrp", attrp);
@@ -51,9 +51,11 @@ public class AttendanceReportController extends BasedRequiredAuthenticationContr
             request.setAttribute("ses", ses);
             request.setAttribute("number", number);
             System.out.println(attrp.entrySet());
+            System.out.println("hihi");
         }
 
         request.setAttribute("gs", gs);
+        request.setAttribute("accname", user.getAccName());
 
         request.getRequestDispatcher("../view/screen/attendancereport.jsp").forward(request, response);
 
