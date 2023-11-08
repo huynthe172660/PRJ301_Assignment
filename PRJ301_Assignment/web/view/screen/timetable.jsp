@@ -74,6 +74,7 @@
                 text-decoration: underline;
                 color: black;
             }
+
         </style>
     </head>
     <body>
@@ -89,7 +90,11 @@
                 <br>
                 Please go to teach on time and don't forget to take attendance before 12AM
             </form>
-            
+            <a href="home" style="color: white">
+                <br>
+                Home
+            </a>
+
         </header>
 
         <c:if test="${requestScope.dates.size()!=null}">
@@ -113,7 +118,7 @@
                                             <span style="color: black;">
                                                 ${k.group.name}-${k.group.subject.name}-${k.room.name}
                                             </span>
-                                            
+
                                             <c:if test="${k.isAtt}">
                                                 <span style="color: green;"> 
                                                     (attended) 
@@ -134,6 +139,7 @@
 
             </table>
         </c:if>
+
     </body>
 </html>
 

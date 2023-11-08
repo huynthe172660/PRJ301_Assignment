@@ -13,25 +13,53 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <table border="1px">
-            <tr>
-                <th>Name</th>
-                <c:forEach begin="1" end="${requestScope.number}" varStatus="loop" >
-                    <th>Slot ${loop.index}</th>
-                </c:forEach>
-            </tr>
-            <c:forEach items="${requestScope.attrp}" var="a">
-                <tr>
-                    <td>${a.key}</td>
-                    <c:forEach items="${a.value}" var="s">
-                        <td>
-                            ${s.status}
-                        </td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
-        </table>
-            
+        <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Attendance Report</title>
+            <style>
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
 
-    </body>
+                table, th, td {
+                    border: 1px solid black;
+                }
+
+                th, td {
+                    padding: 8px;
+                    text-align: center;
+                }
+
+                th {
+                    background-color: #f2f2f2;
+                }
+            </style>
+        </head>
+        <body>
+            <h2>Attendance Report</h2>
+            <table border="1px">
+                <tr>
+                    <th>Name</th>
+                        <c:forEach begin="1" end="${requestScope.number}" varStatus="loop" >
+                        <th>Slot ${loop.index}</th>
+                        </c:forEach>
+                </tr>
+                <c:forEach items="${requestScope.attrp}" var="a">
+                    <tr>
+                        <td>${a.key}</td>
+                        <c:forEach items="${a.value}" var="s">
+                            <td>
+                                ${s.status}
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </table>
+        </body>
+    </html>
+
+
+</body>
 </html>

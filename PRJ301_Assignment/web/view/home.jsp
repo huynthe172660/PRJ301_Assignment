@@ -75,7 +75,7 @@
         </div>
 
         <div class="container">
-            <a href="sameLink.jsp">
+            <a href="attendancereport">
                 <div class="box">
                     <h2>Attendance Report</h2>
                 </div>
